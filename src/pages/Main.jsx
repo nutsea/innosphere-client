@@ -140,7 +140,7 @@ const Main = () => {
                                             )
                                         })}
                                     </div>
-                                    <button>Связаться с нами</button>
+                                    <button onClick={showModal}>Связаться с нами</button>
                                 </div>
                             )
                         })}

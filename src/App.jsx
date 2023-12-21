@@ -274,7 +274,7 @@ function App() {
                         />
                     </div>
                     <textarea className='InputTextarea modal' type="text" placeholder='Что хотели бы узнать?' />
-                    <button className={`SendBtn modal ${sendName.length > 0 && sendNumber.length === 11 ? '' : 'NonActive'}`}>Отправить заявку</button>
+                    <button className={`SendBtn modal ${sendName.length > 0 && sendNumber.length === 11 ? '' : 'NonActive'}`} onClick={closeModal}>Отправить заявку</button>
                 </div>
             </div>
         </div>
