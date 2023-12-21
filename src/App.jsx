@@ -243,7 +243,7 @@ function App() {
                             </div>
                             <div className='FooterContact'>
                                 <img src={phone} alt="Телефон" />
-                                <a href="tel:+79172682101">+7 (987) 186-46-41</a>
+                                <a href="tel:+79871864641">+7 (987) 186-46-41</a>
                             </div>
                             <div className='FooterContact'>
                                 <img src={email} alt="Почта" />
