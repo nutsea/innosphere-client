@@ -340,7 +340,9 @@
 }
 
 @media (max-width: 970px) {
-    .NavList, .HeaderFeedback {
+
+    .NavList,
+    .HeaderFeedback {
         display: none;
     }
 
@@ -361,5 +363,12 @@
 
     .FooterCol+.FooterCol {
         margin-top: 30px;
+    }
+}
+
+@media (max-width: 500px) {
+    .AppHeader {
+        width: calc(100% - 60px);
+        padding: 10px 30px;
     }
 }
