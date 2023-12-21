@@ -368,7 +368,7 @@
 
 @media (max-width: 500px) {
     .AppHeader {
-        width: calc(100% - 60px);
-        padding: 10px 30px;
+        width: calc(100% - 60px) !important;
+        padding: 10px 30px !important;
     }
 }
