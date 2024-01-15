@@ -4,6 +4,7 @@ import { LuPlus } from "react-icons/lu";
 
 import '../styles/admin.scss'
 import {
+    addImage,
     addIntensive,
     addPrice, addRate,
     addService, destroyImage, destroyIntensive, destroyPrice, destroyRate, destroyService,
@@ -32,6 +33,7 @@ const Admin = () => {
     // eslint-disable-next-line
     const [categoryId, setCategoryId] = useState(1)
     const [date, setDate] = useState('')
+    const [image, setImage] = useState(null)
     const [changeId, setChangeId] = useState()
     const [toDelete, setToDelete] = useState()
     const [selectedOption, setSelectedOption] = useState(1);
@@ -74,6 +76,10 @@ const Admin = () => {
         setPrice(e.target.value)
     }
     
+    const handleImage = (e) => {
+        setImage(e.target.files[0])
+    }
+
     const handleDate = (e) => {
         const dateInput = new Date(e.target.value);
         if (!isNaN(dateInput.getTime())) {
@@ -98,6 +104,7 @@ const Admin = () => {
         setPrice('')
         setCategoryId('')
         setDate('')
+        setImage(null)
         setChangeId(null)
     }
     
@@ -185,6 +192,19 @@ const Admin = () => {
             }
         }
     }
+
+    const createImage = () => {
+        if (text.length > 0 && image) {
+            addImage(text, image).then(() => {
+                setImages(null)
+                setText('')
+                setImage(null)
+                fetchImages().then(data => {
+                    setImages(data)
+                })
+            })
+        }
+    }
     
     const createRate = () => {
         if (name.length > 0 && text.length > 0 && date.length > 0) {
@@ -202,6 +222,9 @@ const Admin = () => {
     
     const deleteService = (check) => {
         if (check) {
+            setName('')
+            setText('')
+            setChangeId(null)
             destroyService(toDelete.id).then(() => {
                 setServices(null)
                 setToDelete(null)
@@ -234,6 +257,10 @@ const Admin = () => {
     
     const deleteIntensive = (check) => {
         if (check) {
+            setName('')
+            setText('')
+            setPrice('')
+            setChangeId(null)
             destroyIntensive(toDelete.id).then(() => {
                 setIntensives(null)
                 setToDelete(null)
@@ -248,6 +275,9 @@ const Admin = () => {
     
     const deleteRate = (check) => {
         if (check) {
+            setName('')
+            setText('')
+            setDate(null)
             destroyRate(toDelete.id).then(() => {
                 setRates(null)
                 setToDelete(null)
@@ -263,6 +293,7 @@ const Admin = () => {
     // eslint-disable-next-line
     const deleteImage = (check) => {
         if (check) {
+            setImage('')
             destroyImage(toDelete.id).then(() => {
                 setImages(null)
                 setToDelete(null)
@@ -304,7 +335,7 @@ const Admin = () => {
     }, [])
     
     return (
-        <div className="ContentContainer">
+        <div className="ContentContainer" style={{marginBottom: 30}}>
             <div className="TopLink">
                 <div className="Link" id="/" onClick={handleNavigate}>Главная</div>
                 <div>&nbsp;/ Панель администратора</div>
@@ -381,7 +412,7 @@ const Admin = () => {
                                         })}
                                     </>
                                     :
-                                    <div className='LoaderBox'>
+                                    <div className='LoaderBox LoaderBox2'>
                                         <span className="Loader"></span>
                                     </div>
                                 }
@@ -412,7 +443,7 @@ const Admin = () => {
                                                     </>
                                                 }
                                             <div className="ItemTip">Категория</div>
-                                            <select className="AdminInput" id="selectOption" name="options" value={selectedOption} onChange={handleSelectChange}>
+                                            <select className="AdminInput SelectInput" id="selectOption" name="options" value={selectedOption} onChange={handleSelectChange}>
                                                 <option value="1">Диагностика и консультации специалистов</option>
                                                 <option value="2">АВА - поведенческая аналитика</option>
                                                 <option value="3">Индивидуальные и групповые занятия</option>
@@ -448,7 +479,7 @@ const Admin = () => {
                                         })}
                                         </>
                                         :
-                                        <div className='LoaderBox'>
+                                        <div className='LoaderBox LoaderBox2'>
                                             <span className="Loader"></span>
                                         </div>
                                     }
@@ -508,7 +539,7 @@ const Admin = () => {
                                             })}
                                             </>
                                             :
-                                            <div className='LoaderBox'>
+                                            <div className='LoaderBox LoaderBox2'>
                                                 <span className="Loader"></span>
                                             </div>
                                         }
@@ -559,7 +590,7 @@ const Admin = () => {
                                                 })}
                                                 </>
                                                 :
-                                                <div className='LoaderBox'>
+                                                <div className='LoaderBox LoaderBox2'>
                                                     <span className="Loader"></span>
                                                 </div>
                                             }
@@ -569,6 +600,47 @@ const Admin = () => {
                                             <>
                                                 <div className="AdminBack" onClick={clickBack}>Назад</div>
                                                 <h3 className="AdminPanelSub">Фотогалерея</h3>
+                                                {images ?
+                                                <>
+                                                    {toDelete &&
+                                                            <div className="ItemBox">
+                                                                <div className="ItemTip" style={{marginTop: 0}}>Подтвердите действие</div>
+                                                                <div>Удалить фото "{toDelete.text}"</div>
+                                                                <button className="AdminCategory BoxBtn ItemDelete" id="image" onClick={() => deleteImage(true)}>Удалить</button>
+                                                                <button className="AdminCategory BoxBtn" id="image" onClick={() => deleteImage(false)}>Отменить</button>
+                                                            </div>
+                                                        }
+                                                    <div className="ItemBox">
+                                                        <div className="ItemTip" style={{marginTop: 0}}>Добавление нового фото</div>
+                                                        <input className="AdminInput BoxInput" type="text" placeholder="Надпись" value={text} onChange={handleText} />
+                                                        <input className="AdminInput BoxInput DateInput" onChange={handleImage} type="file" />
+                                                        <button className={`AdminCategory BoxBtn ${text.length > 0 && image ? '' : 'NonActive'}`} id="image" onClick={createImage}><LuPlus size={20} /></button>
+                                                    </div>
+                                                    {images.map((item, i) => {
+                                                        return (
+                                                            <div className="ItemBox" key={item.id}>
+                                                                <div className="ItemBoxSub">Фото {i + 1}</div>
+                                                                <div className="ItemTip">Надпись</div>
+                                                                <div className="ItemText">{item.text}</div>
+                                                                <img className="ItemImg" src={`${process.env.REACT_APP_API_URL + item.name}`} alt="Фото" />
+                                                                <button
+                                                                    className="ItemChange ItemDelete"
+                                                                    onClick={() => {
+                                                                    setToDelete(item)
+                                                                        window.scrollTo({top: 0, behavior: 'smooth'})
+                                                                }}
+                                                                    >
+                                                                    Удалить
+                                                                </button>
+                                                            </div>
+                                                            )
+                                                    })}
+                                                </>
+                                                :
+                                                <div className='LoaderBox LoaderBox2'>
+                                                    <span className="Loader"></span>
+                                                </div>
+                                                }
                                             </>
                     }
                 </>

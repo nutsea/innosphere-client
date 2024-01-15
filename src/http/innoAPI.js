@@ -44,8 +44,12 @@ export const addIntensive = async (name, text, price) => {
     return data
 }
 
-export const addImage = async (text) => {
-    const { data } = await $host.post('api/image', {text})
+export const addImage = async (text, image) => {
+    const formData = new FormData()
+    formData.append('text', text)
+    formData.append('img', image)
+
+    const { data } = await $host.post('api/image', formData)
     return data
 }
 

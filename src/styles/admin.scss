@@ -2,6 +2,7 @@
 
 .AdminSub {
     margin: 0 0 15px 0;
+    text-align: center;
 }
 
 .AdminPassword {
@@ -41,7 +42,6 @@
     padding: 10px 0;
     border-radius: 15px;
     width: 440px;
-    max-width: calc(100% - 20px);
     margin-top: 10px;
     color: white;
     @include base.hover();
@@ -58,7 +58,6 @@
 
 .AdminInput {
     width: 398px;
-    max-width: calc(100% - 2px - 60px);
     padding: 10px 20px;
     outline: none;
     border: solid 1px base.$text;
@@ -69,7 +68,7 @@
     color: base.$text;
     font-weight: 500;
     resize: vertical;
-    max-height: 200px;
+    max-height: 400px;
     min-height: 21px;
 }
 
@@ -129,4 +128,26 @@
 
 .DateInput {
     resize: none;
+}
+
+.SelectInput {
+    width: 100%;
+    padding: 10px 20px;
+    outline: none;
+    border: solid 1px base.$text;
+    border-radius: 15px;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    margin-top: 10px;
+    color: base.$text;
+    font-weight: 500;
+    resize: vertical;
+    max-height: 200px;
+    min-height: 21px;
+}
+
+.ItemImg {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 15px;
 }

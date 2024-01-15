@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import {useState} from 'react'
 import { IoClose, IoMenuOutline  } from "react-icons/io5";
 
 import './styles/base.scss'
@@ -211,10 +211,12 @@ function App() {
             </header>
             <AppRoutes />
             <footer>
-                <div className='FooterMap'>
-                    <h2>Мы на карте</h2>
-                    <iframe title='Карта' className='YandexMap' src="https://yandex.ru/map-widget/v1/?um=constructor%3A3f7798a40fc52ff81ff351f93a309bc61576924d56a14426c250f94c3a918b1a&amp;source=constructor" width="872" height="400"></iframe>
-                </div>
+                {!window.location.href.includes('admin') &&
+                    <div className='FooterMap'>
+                        <h2>Мы на карте</h2>
+                        <iframe title='Карта' className='YandexMap' src="https://yandex.ru/map-widget/v1/?um=constructor%3A3f7798a40fc52ff81ff351f93a309bc61576924d56a14426c250f94c3a918b1a&amp;source=constructor" width="872" height="400"></iframe>
+                    </div>
+                }
                 <div className='FooterContent'>
                     <div className='FooterRow'>
                         <div className='FooterCol'>
